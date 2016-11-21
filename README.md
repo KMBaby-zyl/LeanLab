@@ -9,5 +9,31 @@ TODO
 
 1. 使用LeanCloud了解细致产品需求
 2. 设计数据表
+- 权限 read write
+- appId, appKey
+- createAt, updateAt, ACL, objectId
+
+- 用户类型 对应 ACL
+
+```
+{
+  "testabc": "abc123",
+  "ACL": {
+    "master": {
+      "read": true,
+      "write": true
+    },
+    "user": {
+      "read": true,
+      "write": false
+    }
+  },
+  "objectId": "583312495c497d006b28df88",
+  "createdAt": "2016-11-21T15:27:05.081Z",
+  "updatedAt": "2016-11-21T15:27:05.081Z"
+}
+```
+
 3. Coding 实现系统
+4. SDK
 4. UI交互界面
