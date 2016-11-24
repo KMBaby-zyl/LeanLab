@@ -17,7 +17,5 @@ var start = async function () {
     await sleep(3000);
     console.log('end');
 };
-console.log(a);
-
 
 start();
