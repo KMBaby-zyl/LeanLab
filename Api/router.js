@@ -20,6 +20,7 @@ router.get('/create/:id', function *(next){
  *
  * */
 router.get('/user/regist/:name/:pwd', function *(next){
+    console.log('regist');
     let name = this.params.name;
     let pwd = this.params.pwd;
 

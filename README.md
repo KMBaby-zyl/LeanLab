@@ -39,3 +39,8 @@ TODO
 3. Coding 实现系统
 4. SDK
 4. UI交互界面
+
+5. run
+```
+nodemon ./server.js
+```
