@@ -4,21 +4,20 @@ var Schema    = mongoose.Schema;
 var ObjectId  = Schema.ObjectId; 
 
 
-var AppSchema = new Schema({
+
+var DocumentSchema = new Schema({
     appId: {type: String},
-    appKey: {type: String},
-    masterKey: {type: String},
-    userId: {type: String},
     createAt: {type: Date, default: Date.now},
     updateAt: {type: Date},
+    content: {type: String}
 },{
     collection: 'app' 
 });
 
+DocumentSchema.plugin(BaseModel);
 
-AppSchema.plugin(BaseModel);
 // TODO
-//AppSchema.index({});
+// AppSchema.index({});
 
-mongoose.model('App', AppSchema);
+mongoose.model('Document', DocumentSchema);
 
