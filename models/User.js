@@ -4,19 +4,21 @@ var Schema    = mongoose.Schema;
 var ObjectId  = Schema.ObjectId; 
 
 
-var CollectionSchema = new Schema({
-    appId: {type: String},
+var UserSchema = new Schema({
+    username: {type: String},
+    pwd: {type: String},
+    phone: {type: Number},
     createAt: {type: Date, default: Date.now},
     updateAt: {type: Date},
-    name: {type: String}
-},{
-    collection: 'collections' 
+}, {
+    collection: 'user' 
 });
 
-CollectionSchema.plugin(BaseModel);
+
+UserSchema.plugin(BaseModel);
 
 // TODO
-// AppSchema.index({});
+//AppSchema.index({});
 
-mongoose.model('Collection', CollectionSchema);
+mongoose.model('User', UserSchema);
 

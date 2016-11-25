@@ -14,8 +14,10 @@ mongoose.connect('mongodb://' + config.mongodburl, {
 require('./App');
 require('./Collection');
 require('./Document');
+require('./User');
 
 exports.App = mongoose.model('App');
-exports.Collection= mongoose.model('Collection');
+exports.Collection = mongoose.model('Collection');
 exports.Document = mongoose.model('Document');
+exports.User = mongoose.model('User');
 

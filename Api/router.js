@@ -1,25 +1,31 @@
 import Router from 'koa-router';
-import CryptoJS from 'crypto-js';
 const router = new Router();
-import {App} from '../models/';
 
-router.get('/create',function *(next){
-    
-    let ans = '';
 
-    
-    let appId = 1479976148232 + new Date().getTime(); 
-    let appKey = CryptoJS.HmacSHA1('key', ''+appId).toString();
-    ans = 'appId:' + appId + ' appKey:' + appKey;
+import App from './app.js';
+import User from './user.js';
 
-    var app = new App({
-        appId: appId,
-        appKey: appKey, 
-    });
+/*
+ * create an app
+ * */
+router.get('/create/:id', function *(next){
     
-    app.save();
+    let ans = App.createApp(); 
 
     this.body = ans;
 });
+
+/*
+ * user regist
+ *
+ * */
+router.get('/user/regist/:name/:pwd', function *(next){
+    let name = this.params.name;
+    let pwd = this.params.pwd;
+
+    let ans = User.regist(name, pwd);
+
+    this.body = ans;
+}); 
 
 export default router;
