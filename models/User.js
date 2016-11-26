@@ -8,8 +8,10 @@ var UserSchema = new Schema({
     username: {type: String},
     pwd: {type: String},
     phone: {type: Number},
+    email: {type: String},
     createAt: {type: Date, default: Date.now},
     updateAt: {type: Date},
+    accessToken: {type: String}
 }, {
     collection: 'user' 
 });

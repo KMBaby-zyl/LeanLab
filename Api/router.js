@@ -9,8 +9,8 @@ import User from './user.js';
  * create an app
  * */
 router.get('/create/:id', function *(next){
-    
-    let ans = App.createApp(); 
+     
+    //let ans = App.createApp(); 
 
     this.body = ans;
 });
@@ -24,9 +24,24 @@ router.get('/user/regist/:name/:pwd', function *(next){
     let name = this.params.name;
     let pwd = this.params.pwd;
 
-    let ans = User.regist(name, pwd);
+    let ans = yield User.regist(name, pwd);
+
+    this.body = ans;
+}); 
+
+/*
+ * user login 
+ *
+ * */
+router.get('/user/login/:name/:pwd', function *(next){
+    console.log('login');
+    let name = this.params.name;
+    let pwd = this.params.pwd;
+
+    let ans = yield User.login(this, name, pwd);
 
     this.body = ans;
 }); 
 
 export default router;
+
