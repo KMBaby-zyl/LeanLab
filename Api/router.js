@@ -4,6 +4,7 @@ const router = new Router();
 
 import App from './app.js';
 import User from './user.js';
+import auth from '../middlewares/auth';
 
 /*
  * create an app
@@ -42,6 +43,12 @@ router.get('/user/login/:name/:pwd', function *(next){
 
     this.body = ans;
 }); 
+
+router.get('/insert/:json', function *(){
+    yield auth.userRequired(this);
+    console.log('end ur');
+
+});
 
 export default router;
 

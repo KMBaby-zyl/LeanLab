@@ -22,6 +22,7 @@ app.keys = ['some secret hurr']
 
 app.use(function* (next){
     this.locals = {};
+    this.request.session = {};
     yield next;
 });
 

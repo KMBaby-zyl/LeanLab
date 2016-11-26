@@ -7,7 +7,7 @@ exports.authUser = function* (next){
     let res = this.response;
 
     let ctx = this;
-    this.locals.current_user = null;
+    req.session.user= null;
         
     // 如果是debug模式， 则user为admin
     //if (config.debug && req.cookies['mock_user']) {
@@ -28,11 +28,7 @@ exports.authUser = function* (next){
             yield next;
         }
         
-        let user = ctx.locals.current_user = yield UserP.getUserByToken(token);
-
-        //if (config.admins.hasOwnProperty(user.loginname)) {
-            //user.is_admin = true;
-        //}
+        let user = req.session.user = yield UserP.getUserByToken(token);
 
         yield next;
     };
@@ -42,12 +38,22 @@ exports.authUser = function* (next){
     if(accessToken){
         yield getUser(accessToken);
     }
-    //else{
-        //if (!auth_token) {
-           //yield next; 
-        //}
-    //}
 
     yield next;
     
 }
+
+/**
+ *  * 需要登录
+ *   */
+exports.userRequired = function* (ctx) {
+    let req = ctx.request;
+    let res = ctx.response;
+    if (!req.session || !req.session.user || !req.session.user._id) {
+        return res.status(403).send('forbidden!');
+    }
+};
+
+
+
+
