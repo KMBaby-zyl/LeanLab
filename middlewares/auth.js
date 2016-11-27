@@ -44,14 +44,18 @@ exports.authUser = function* (next){
 }
 
 /**
- *  * 需要登录
- *   */
-exports.userRequired = function* (ctx) {
-    let req = ctx.request;
-    let res = ctx.response;
+ ** 需要登录
+ **/
+exports.userRequired = function* (next) {
+    let req = this.request;
+    let res = this.response;
+
     if (!req.session || !req.session.user || !req.session.user._id) {
-        return res.status(403).send('forbidden!');
+        return res.status = 403;
     }
+    
+    yield next;
+
 };
 
 

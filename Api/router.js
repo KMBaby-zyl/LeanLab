@@ -9,7 +9,7 @@ import auth from '../middlewares/auth';
 /*
  * create an app
  * */
-router.get('/create/:id', function *(next){
+router.get('/create/:id', auth.userRequired, function *(next){
      
     //let ans = App.createApp(); 
 
@@ -44,11 +44,19 @@ router.get('/user/login/:name/:pwd', function *(next){
     this.body = ans;
 }); 
 
-router.get('/insert/:json', function *(){
-    yield auth.userRequired(this);
-    console.log('end ur');
 
+router.get('/insert/:app/:json', auth.userRequired, function *(next){
+
+    console.log('insert');
+
+    this.body = 'ss';
 });
+
+
+
+
+
+
 
 export default router;
 
