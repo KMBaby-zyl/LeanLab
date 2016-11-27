@@ -4,14 +4,15 @@ const router = new Router();
 
 import App from './app.js';
 import User from './user.js';
+import Document from './document.js';
 import auth from '../middlewares/auth';
 
 /*
  * create an app
  * */
-router.get('/create/:id', auth.userRequired, function *(next){
+router.get('/create/:name', auth.userRequired, function *(next){
      
-    //let ans = App.createApp(); 
+    let ans = App.createApp(this, this.params.name); 
 
     this.body = ans;
 });
@@ -46,10 +47,12 @@ router.get('/user/login/:name/:pwd', function *(next){
 
 
 router.get('/insert/:app/:json', auth.userRequired, function *(next){
+    let appId = this.params.app;
+    let json = this.params.json;
+    
+    let ans = Document.insert(this, appId, json);
 
-    console.log('insert');
-
-    this.body = 'ss';
+    this.body = ans; 
 });
 
 

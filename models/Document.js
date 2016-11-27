@@ -8,10 +8,10 @@ var ObjectId  = Schema.ObjectId;
 var DocumentSchema = new Schema({
     appId: {type: String},
     createAt: {type: Date, default: Date.now},
-    updateAt: {type: Date},
+    updateAt: {type: Date, default: Date.now},
     content: {type: String}
 },{
-    collection: 'app' 
+    collection: 'Documents' 
 });
 
 DocumentSchema.plugin(BaseModel);

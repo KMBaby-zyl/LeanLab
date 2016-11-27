@@ -10,7 +10,7 @@ var UserSchema = new Schema({
     phone: {type: Number},
     email: {type: String},
     createAt: {type: Date, default: Date.now},
-    updateAt: {type: Date},
+    updateAt: {type: Date, default: Date.now},
     accessToken: {type: String}
 }, {
     collection: 'user' 

@@ -7,10 +7,11 @@ var ObjectId  = Schema.ObjectId;
 var AppSchema = new Schema({
     appId: {type: String},
     appKey: {type: String},
+    name: {type: String},
     masterKey: {type: String},
-    userId: {type: String},
+    userId: {type: Schema.Types.ObjectId},
     createAt: {type: Date, default: Date.now},
-    updateAt: {type: Date},
+    updateAt: {type: Date, default: Date.now},
 },{
     collection: 'app' 
 });
