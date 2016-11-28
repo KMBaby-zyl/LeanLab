@@ -50,6 +50,12 @@ nodemon ./server.js
 
 
 #TODO
-1. Login
-2. API
+1. Login -done
+2. API -ing
+3. SDK -ing
+4. Collection -wait
+5. UI -wait
+
+
+
 
