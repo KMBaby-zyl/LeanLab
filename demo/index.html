@@ -22,6 +22,7 @@ AV.init({
 var TestObject = AV.Object.extend('TestObject');
 var testObject = new TestObject();
 var query = new AV.Query('TestObject');
+
 query.equalTo('a', 'aaa');
 query.find().then(function(i) {
     console.log(i);
@@ -29,10 +30,12 @@ query.find().then(function(i) {
     alert('error:' + err);
 });
 
-// testObject.save({
-//     a: 'aaa'
-// });
+/*
+testObject.query({a: 'aaa'}).save({
+     a: 'bbb'
+ });
 
+*/
 </script>
 </body>
 </html>

@@ -8,6 +8,12 @@ import User from './user.js';
 import Document from './document.js';
 import auth from '../middlewares/auth';
 
+
+router.use(function* (next){
+    this.set('Access-Control-Allow-Origin', '*');
+    yield next;
+});
+
 /*
  * create an app
  * */
