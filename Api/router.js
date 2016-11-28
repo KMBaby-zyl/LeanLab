@@ -73,7 +73,23 @@ router.get('/delete/:id', auth.userRequired, function *(next){
 });
 
 
+router.get('/delete/:app/:options', auth.userRequired, function *(next){
+    let appId = this.params.app;
+    let options = this.params.options;
+    
+    let ans = yield Document.deleteByOptions(this, appId, options);
 
+    this.body = ans;
+});
+
+router.get('/update/:id/:options', auth.userRequired, function* (next){
+    let id = this.params.id;
+    let options = this.params.options;
+
+    let ans = yield Document.update(this, id, options);
+
+    this.body = ans;
+});
 
 
 

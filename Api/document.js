@@ -36,7 +36,14 @@ exports.query = query;
 
 
 let update = function(ctx, documentId, options){
-     
+    let docs = Document.findOne({
+        _id: documentId
+    })
+    .update({content: options})
+    .exec();
+
+
+    return docs;
 }
 
 exports.update = update;
@@ -46,10 +53,13 @@ let deleteByOptions = function(ctx, appId, options){
     let docs = Document.find({
         appId: appId,
         content: options
-    });
+    })
+    .remove()
+    .exec();
     
     return docs;
 }
+
 exports.deleteByOptions = deleteByOptions;
 
 
