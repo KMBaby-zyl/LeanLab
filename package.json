@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "sdk": "babel JSSDK/index.js --out-file build/rider.min.js",
+    "demo": "python -m SimpleHTTPServer 8081"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,7 @@
     "install": "^0.8.2",
     "jslint": "^0.10.3",
     "koa": "^1.2.4",
+    "koa-body": "^1.6.0",
     "koa-router": "^5.4.0",
     "koa-session": "^3.4.0",
     "moment": "^2.17.0",
@@ -35,5 +38,8 @@
     "node-uuid": "^1.4.7",
     "npm": "^4.0.2",
     "uuid": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0"
   }
 }

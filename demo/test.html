@@ -1,10 +1,13 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title></title>
 </head>
 <body>
-    hello
-<script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../build/rider.min.js"></script>
+
 <script type="text/javascript">
 // 应用 ID，用来识别应用
 var APP_ID = 'ckEojGxm9OGvJcHXyF3zXSzH-gzGzoHsz';
@@ -13,26 +16,19 @@ var APP_ID = 'ckEojGxm9OGvJcHXyF3zXSzH-gzGzoHsz';
 var APP_KEY = '1h4xSTyVoAepYYLpsbc1jFz3';
 
 // 初始化
-AV.init({
+Rider.init({
   appId: APP_ID,
   appKey: APP_KEY
 });
 
 
-var TestObject = AV.Object.extend('TestObject');
+var TestObject = Rider.Object.extend('shops');
 var testObject = new TestObject();
-var query = new AV.Query('TestObject');
-query.equalTo('a', 'aaa');
-query.find().then(function(i) {
-    console.log(i);
-}).catch(function(err) {
-    alert('error:' + err);
+
+testObject.save({
+    'name': '鱿鱼丝'
 });
-
-// testObject.save({
-//     a: 'aaa'
-// });
-
+    
 </script>
 </body>
 </html>

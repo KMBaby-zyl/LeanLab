@@ -1,6 +1,7 @@
 import Router from 'koa-router';
-const router = new Router();
-
+const router = new Router({
+    prefix: '/api'
+});
 
 import App from './app.js';
 import User from './user.js';
@@ -51,6 +52,18 @@ router.get('/insert/:app/:json', auth.userRequired, function *(next){
     let json = this.params.json;
     
     let ans = Document.insert(this, appId, json);
+
+    this.body = ans; 
+});
+
+router.post('/insert', function *(next){
+    let body = this.request.body;
+    let appId = body.appId;
+    let appKey = body.appKey;
+    let collection = body.collection;
+    let document = JSON.stringify(body.document);
+    
+    let ans = Document.insert(this, appId, document);
 
     this.body = ans; 
 });

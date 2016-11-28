@@ -1,5 +1,6 @@
 import koa from 'koa';
 //import session from 'koa-session';
+import koaBody from 'koa-body';
 
 let app = koa();
 
@@ -27,6 +28,8 @@ app.use(function* (next){
 });
 
 app.use(auth.authUser);
+
+app.use(koaBody());
 app.use(Api.routes());
 app.use(function* (){
     this.body = 'Hello World 2';
