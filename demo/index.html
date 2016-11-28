@@ -21,13 +21,17 @@ AV.init({
 
 var TestObject = AV.Object.extend('TestObject');
 var testObject = new TestObject();
-testObject.save({
-  testabc: 'abc123'
-}).then(function() {
-  alert('LeanCloud works!');
+var query = new AV.Query('TestObject');
+query.equalTo('a', 'aaa');
+query.find().then(function(i) {
+    console.log(i);
 }).catch(function(err) {
   alert('error:' + err);
 });
+
+// testObject.save({
+//     a: 'aaa'
+// });
 
 </script>
 </body>

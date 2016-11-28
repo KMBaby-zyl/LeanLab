@@ -32,6 +32,5 @@ app.use(function* (){
     this.body = 'Hello World 2';
 });
 
-
 app.listen(3000);
 

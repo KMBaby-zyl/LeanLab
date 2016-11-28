@@ -55,6 +55,22 @@ router.get('/insert/:app/:json', auth.userRequired, function *(next){
     this.body = ans; 
 });
 
+router.get('/find/:app/:options', auth.userRequired, function *(next){
+    let appId = this.params.app;
+    let options = this.params.options;
+
+    let ans = yield Document.query(this, appId, options);
+
+    this.body = ans;
+});
+
+router.get('/delete/:id', auth.userRequired, function *(next){
+    let id = this.params.id;
+    
+    let ans = yield Document.deleteById(this, id);
+
+    this.body = ans;
+});
 
 
 
