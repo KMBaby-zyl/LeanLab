@@ -106,7 +106,7 @@ router.delete('/collection', function *(next){
  * create document
  * 
  * */
-router.post('/document', function *(next){
+router.post('/document', auth.userRequired, function *(next){
     let body = this.request.body;
     let appId = body.appId;
     let appKey = body.appKey;
@@ -167,10 +167,10 @@ router.delete('/document', auth.userRequired, function *(next){
  * */
 router.put('/document', auth.userRequired, function* (next){
     let body = this.request.body;
-    let id = body.collectionId;
-    let options = body.options;
+    let id = body.documentId;
+    let document = body.document;
 
-    let ans = yield Document.update(this, id, options);
+    let ans = yield Document.update(this, id, document);
 
     this.body = ans;
 });
