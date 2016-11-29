@@ -53,8 +53,10 @@ nodemon ./server.js
 1. Login -done
 2. API -ing
 3. SDK -ing
-4. Collection -wait
-5. UI -wait
+4. Collection -done
+5. UI -ing
+6. ACL -wait
+7. Auth -ing
 
 
 

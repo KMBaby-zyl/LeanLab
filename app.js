@@ -8,6 +8,7 @@ import auth from './middlewares/auth';
 
 // router
 import Api from './Api/router';
+import webRouter from './webRouter';
 
 var CONFIG = {
     key: 'leanlab', // [>* (string) cookie key (default is koa:sess) <]
@@ -30,10 +31,10 @@ app.use(function* (next){
 app.use(auth.authUser);
 
 app.use(bodyParser());
+
 app.use(Api.routes());
-app.use(function* (){
-    this.body = 'Hello World 2';
-});
+app.use(webRouter.routes());
+
 
 app.listen(3000);
 
