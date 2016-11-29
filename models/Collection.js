@@ -8,7 +8,9 @@ var CollectionSchema = new Schema({
     appId: {type: String},
     createAt: {type: Date, default: Date.now},
     updateAt: {type: Date, default: Date.now},
-    name: {type: String}
+    name: {type: String},
+    keys: {type: String},
+    ACL: {type: String}
 },{
     collection: 'collections' 
 });

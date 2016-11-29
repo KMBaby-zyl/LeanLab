@@ -29,7 +29,7 @@
     "install": "^0.8.2",
     "jslint": "^0.10.3",
     "koa": "^1.2.4",
-    "koa-body": "^1.6.0",
+    "koa-bodyparser": "^2.3.0",
     "koa-router": "^5.4.0",
     "koa-session": "^3.4.0",
     "moment": "^2.17.0",
