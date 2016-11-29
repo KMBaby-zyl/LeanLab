@@ -18,9 +18,11 @@ router.use(function* (next){
 /*
  * create an app
  * */
-router.get('/create/:name', auth.userRequired, function *(next){
-     
-    let ans = App.createApp(this, this.params.name); 
+router.post('/app', auth.userRequired, function *(next){
+    let body = this.request.body; 
+    let name = body.name;
+
+    let ans = App.createApp(this, name); 
 
     this.body = ans;
 });
@@ -53,18 +55,6 @@ router.get('/user/login/:name/:pwd', function *(next){
     this.body = ans;
 }); 
 
-/*
- * create app
- *
- * */
-router.get('/insert/:app/:json', auth.userRequired, function *(next){
-    let appId = this.params.app;
-    let json = this.params.json;
-    
-    let ans = Document.insert(this, appId, json);
-
-    this.body = ans; 
-});
 
 /*
  * create collection
@@ -105,7 +95,6 @@ router.put('/collection', function *(next){
 router.delete('/collection', function *(next){
     let body = this.request.body;
     let collectionId = body.collectionId;
-    console.log(body);
 
     let ans = yield Collection.deleteById(this, collectionId);
 
@@ -113,50 +102,73 @@ router.delete('/collection', function *(next){
 
 });
 
-
-router.post('/create', function *(next){
+/*
+ * create document
+ * 
+ * */
+router.post('/document', function *(next){
     let body = this.request.body;
     let appId = body.appId;
     let appKey = body.appKey;
-    let collection = body.collection;
+    let collectionId = body.collectionId;
     let document = JSON.stringify(body.document);
     
-    let ans = Document.create(this, appId, document);
+
+    let ans = Document.create(this, appId, collectionId, document);
 
     this.body = ans; 
 });
 
 
-router.get('/find/:app/:options', auth.userRequired, function *(next){
-    let appId = this.params.app;
+/*
+ * query document
+ *
+ * */
+router.get('/document/:collectionId/:options', auth.userRequired, function *(next){
+    let collectionId = this.params.collectionId;
     let options = this.params.options;
 
-    let ans = yield Document.query(this, appId, options);
+    let ans = yield Document.query(this, collectionId, options);
 
     this.body = ans;
 });
 
-router.get('/delete/:id', auth.userRequired, function *(next){
-    let id = this.params.id;
+/*
+ * delete document by id
+ *
+ * */
+router.delete('/document', auth.userRequired, function *(next){
+    let body = this.request.body;
+    let id = body.collectionId;
     
     let ans = yield Document.deleteById(this, id);
 
     this.body = ans;
 });
 
+/*
+ * delete document by options
+ *
+ * */
 
-router.get('/delete/:app/:options', auth.userRequired, function *(next){
-    let appId = this.params.app;
-    let options = this.params.options;
+router.delete('/document', auth.userRequired, function *(next){
+    let body = this.request.body;
+    let collectionId = body.collectionId;
+    let options = body.options;
     
-    let ans = yield Document.deleteByOptions(this, appId, options);
+    let ans = yield Document.deleteByOptions(this, collectionId, options);
 
     this.body = ans;
 });
 
-router.get('/update/:id/:options', auth.userRequired, function* (next){
-    let id = this.params.id;
-    let options = this.params.options;
+/*
+ * update document by options
+ *
+ * */
+router.put('/document', auth.userRequired, function* (next){
+    let body = this.request.body;
+    let id = body.collectionId;
+    let options = body.options;
 
     let ans = yield Document.update(this, id, options);
 

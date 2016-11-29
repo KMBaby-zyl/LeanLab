@@ -5,13 +5,13 @@ var ObjectId  = Schema.ObjectId;
 
 
 var UserSchema = new Schema({
-    username: {type: String},
-    pwd: {type: String},
+    username: {type: String, required: true},
+    pwd: {type: String, required: true},
     phone: {type: Number},
     email: {type: String},
     createAt: {type: Date, default: Date.now},
     updateAt: {type: Date, default: Date.now},
-    accessToken: {type: String}
+    accessToken: {type: String, required: true}
 }, {
     collection: 'user' 
 });

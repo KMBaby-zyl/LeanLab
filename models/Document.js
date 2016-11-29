@@ -6,10 +6,11 @@ var ObjectId  = Schema.ObjectId;
 
 
 var DocumentSchema = new Schema({
-    appId: {type: String},
+    appId: {type: String, required: true},
+    collectionId: {type: Schema.Types.ObjectId, required: true},
     createAt: {type: Date, default: Date.now},
     updateAt: {type: Date, default: Date.now},
-    content: {type: String}
+    content: {type: String, required: true}
 },{
     collection: 'Documents' 
 });

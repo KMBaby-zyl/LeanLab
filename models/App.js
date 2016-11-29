@@ -5,11 +5,11 @@ var ObjectId  = Schema.ObjectId;
 
 
 var AppSchema = new Schema({
-    appId: {type: String},
-    appKey: {type: String},
-    name: {type: String},
+    appId: {type: String, required: true},
+    appKey: {type: String, required: true},
+    name: {type: String, required: true},
     masterKey: {type: String},
-    userId: {type: Schema.Types.ObjectId},
+    userId: {type: Schema.Types.ObjectId, required: true},
     createAt: {type: Date, default: Date.now},
     updateAt: {type: Date, default: Date.now},
 },{

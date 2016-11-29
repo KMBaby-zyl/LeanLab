@@ -5,12 +5,12 @@ var ObjectId  = Schema.ObjectId;
 
 
 var CollectionSchema = new Schema({
-    appId: {type: String},
+    appId: {type: String, required: true},
     createAt: {type: Date, default: Date.now},
     updateAt: {type: Date, default: Date.now},
-    name: {type: String},
-    keys: {type: String},
-    ACL: {type: String}
+    name: {type: String, required: true},
+    keys: {type: String, required: true},
+    ACL: {type: String, required: true}
 },{
     collection: 'collections' 
 });

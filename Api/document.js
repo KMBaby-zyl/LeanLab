@@ -1,9 +1,10 @@
 import {Document} from '../models/';
 
-let create = function(ctx, appId, content){
+let create = function(ctx, appId, collectionId, content){
 
     let doc = new Document({
         appId: appId,
+        collectionId, collectionId,
         content: content
     });
 
@@ -27,7 +28,6 @@ let query = function(ctx, appId, options){
     //let docs = Document.find().exec();
     return docs;
 }
-
 
 exports.query = query;
 
