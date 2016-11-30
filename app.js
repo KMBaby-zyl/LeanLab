@@ -1,8 +1,8 @@
 import koa from 'koa';
 //import session from 'koa-session';
 import bodyParser from 'koa-bodyparser';
-import views from 'koa-views';
 import auth from './middlewares/auth';
+import Pug from 'koa-pug';
 
 // router
 import Api from './Api/router';
@@ -28,9 +28,19 @@ app.use(function* (next){
     yield next;
 });
 
-app.use(views(`${__dirname}/views`, {
-    extension: 'html'
-}));
+const pug = new Pug({
+    viewPath: './views',
+    debug: false,
+    pretty: false,
+    compileDebug: false,
+    locals: {}, //global_locals_for_all_pages,
+    basedir: './views/',
+    helperPath: [
+        { _: require('underscore') }
+    ],
+    app: app
+});
+
 
 app.use(auth.authUser);
 

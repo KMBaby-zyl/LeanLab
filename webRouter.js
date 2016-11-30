@@ -4,7 +4,7 @@ const router = new Router({
 });
 
 router.all('*', function* (next){
-    this.render('layout');
+    this.render('layout', {}, true);
 });
 
 
