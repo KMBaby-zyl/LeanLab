@@ -3,8 +3,8 @@ const router = new Router({
     prefix: '/'
 });
 
-router.all('*', function* (){
-    this.body = 'hello';
+router.all('*', function* (next){
+    this.render('layout');
 });
 
 

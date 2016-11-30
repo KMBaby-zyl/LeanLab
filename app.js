@@ -1,16 +1,16 @@
 import koa from 'koa';
 //import session from 'koa-session';
 import bodyParser from 'koa-bodyparser';
-
-let app = koa();
-
+import views from 'koa-views';
 import auth from './middlewares/auth';
 
 // router
 import Api from './Api/router';
 import webRouter from './webRouter';
 
-var CONFIG = {
+
+let app = koa();
+let CONFIG = {
     key: 'leanlab', // [>* (string) cookie key (default is koa:sess) <]
     maxAge: 86400000, //[>* (number) maxAge in ms (default is 1 days) <]
     overwrite: true, //[>* (boolean) can overwrite or not (default true) <]
@@ -27,6 +27,10 @@ app.use(function* (next){
     this.request.session = {};
     yield next;
 });
+
+app.use(views(`${__dirname}/views`, {
+    extension: 'html'
+}));
 
 app.use(auth.authUser);
 
