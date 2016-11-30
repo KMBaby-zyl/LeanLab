@@ -4,10 +4,11 @@
   "description": "### 搭建自己的LeanLab， 你的项目不再需要写后端代码。 参考自(LeanCloud)[https://leancloud.cn/]",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "nodemon ./server.js",
     "sdk": "babel JSSDK/index.js --out-file build/rider.min.js",
-    "demo": "python -m SimpleHTTPServer 8081"
+    "demo": "python -m SimpleHTTPServer 8081",
+    "dev": "NODE_ENV=dev webpack --config public/build/webpack.config.js",
+    "build": "NODE_ENV=prod webpack --config public/build/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,13 @@
     "babel-core": "^6.18.2",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-preset-stage-3": "^6.17.0",
+    "copy-webpack-plugin": "^3.0.1",
     "crypto-js": "^3.1.8",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "happypack": "^2.2.1",
     "install": "^0.8.2",
     "jslint": "^0.10.3",
     "koa": "^1.2.4",
@@ -35,11 +40,23 @@
     "moment": "^2.17.0",
     "mongoose": "^4.7.0",
     "monk": "^3.1.3",
+    "node-sass": "^3.13.0",
     "node-uuid": "^1.4.7",
     "npm": "^4.0.2",
-    "uuid": "^3.0.0"
+    "uuid": "^3.0.0",
+    "webpack": "*",
+    "webpack-dev-server": "^1.10.1",
+    "webpack-notifier": "^1.3.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0"
+    "babel-cli": "^6.18.0",
+    "jquery": "~2.1.4",
+    "react": "~0.14.8",
+    "react-dom": "~0.14.8",
+    "react-router": "~2.0.0",
+    "classnames": "^2.2.5",
+    "style-loader": "~0.12.3",
+    "css-loader": "^0.16.0",
+    "sass-loader": "^3.1.2"
   }
 }
