@@ -11,7 +11,7 @@ var HappyPack = require('happypack');
 var happyThreadPool = HappyPack.ThreadPool({ size: 2 });
 
 var entry_file = utils.add_prefix(require('./entry.js'), './public/');
-var alias_file = require('./alias.js');
+var alias_file = utils.add_prefix(require('./alias.js'), './public/');
 
 var env = process.env.NODE_ENV;
 
@@ -27,7 +27,7 @@ module.exports =  {
         publicPath: path.resolve(process.cwd(), 'dist/')
     },
     resolve: {
-        alias: alias_file 
+        alias: utils.addResolve(extend(alias_file)) 
     },
     plugins: [
         new CopyWebpackPlugin([
@@ -45,7 +45,8 @@ module.exports =  {
             $: 'jquery',
             _: 'underscore',
             React: 'react',
-            ReactDOM: 'react-dom'
+            ReactDOM: 'react-dom',
+            global: 'global'
         }),
         new WebpackNotifierPlugin({
             title: 'Webpack 编译成功',

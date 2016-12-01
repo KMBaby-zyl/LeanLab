@@ -31,10 +31,10 @@ router.post('/app', auth.userRequired, function *(next){
  * user regist
  *
  * */
-router.get('/user/regist/:name/:pwd', function *(next){
-    console.log('regist');
-    let name = this.params.name;
-    let pwd = this.params.pwd;
+router.post('/user/:name/:pwd', function *(next){
+    let body = this.request.body;
+    let name = body.name;
+    let pwd = body.pwd;
 
     let ans = yield User.regist(name, pwd);
 

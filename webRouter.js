@@ -4,7 +4,10 @@ const router = new Router({
 });
 
 router.all('*', function* (next){
-    this.render('./login/index', {name: '123'});
+    this.render('./login/index', {
+        page_tag: 'login',
+        name: '123'
+    });
 });
 
 
