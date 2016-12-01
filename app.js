@@ -48,7 +48,6 @@ const pug = new Pug({
     app: app
 });
 
-console.log(pug.locals);
 
 app.use(mount('/static', serve('dist')));
 //app.use(mount('/assets/avatar', serve('assets/avatar')));

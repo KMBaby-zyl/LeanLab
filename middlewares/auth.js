@@ -33,7 +33,6 @@ exports.authUser = function* (next){
         yield next;
     };
 
-    console.log(this.cookies.get('accessToken'));
     let accessToken = this.cookies.get('accessToken');
 
     if(accessToken){

@@ -1,4 +1,5 @@
 import Router from 'koa-router';
+import consts from '../const.js';
 const router = new Router({
     prefix: '/api'
 });
@@ -11,7 +12,18 @@ import auth from '../middlewares/auth';
 
 
 router.use(function* (next){
+    let ctx = this;
     this.set('Access-Control-Allow-Origin', '*');
+    this.ans = {
+        status: 1
+    };
+    this.setError = function(errorCode, errorMessage='系统错误'){
+        ctx.ans.status = -1;
+        ctx.ans.errorCode = errorCode;
+        ctx.ans.errorMessage = errorMessage;
+    }
+
+    this.body = this.ans;
     yield next;
 });
 
@@ -31,7 +43,7 @@ router.post('/app', auth.userRequired, function *(next){
  * user regist
  *
  * */
-router.post('/user/:name/:pwd', function *(next){
+router.post('/user', function *(next){
     let body = this.request.body;
     let name = body.name;
     let pwd = body.pwd;
@@ -45,14 +57,30 @@ router.post('/user/:name/:pwd', function *(next){
  * user login 
  *
  * */
-router.get('/user/login/:name/:pwd', function *(next){
-    console.log('login');
-    let name = this.params.name;
-    let pwd = this.params.pwd;
+router.post('/user/login', function *(next){
+    let body = this.request.body;
+    let name = body.name;
+    let pwd = body.pwd;
 
-    let ans = yield User.login(this, name, pwd);
+    let user = yield User.getUserByName(this, name, pwd);
 
-    this.body = ans;
+    // 用户不存在
+    if(!user){
+        this.setError(consts.NO_USER, '找不到该用户');
+        return ;
+    }
+
+    // 密码错误
+    if(user.pwd != pwd){
+        this.setError(consts.PASSWORD_ERROR, '密码错误');
+        return ;
+    }
+
+    this.cookies.set('accessToken', user.accessToken);
+    this.cookies.set('username', user.username);
+
+    this.ans.data = '登录成功';
+    this.body = this.ans;
 }); 
 
 

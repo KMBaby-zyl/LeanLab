@@ -1,3 +1,4 @@
 module.exports = {
-    login: 'login/index.js'
+    login: 'login/index.js',
+    app_index: 'app/index.js'
 }

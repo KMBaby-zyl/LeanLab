@@ -3,12 +3,12 @@ import {App} from '../models/';
 
 
 
-let createApp = function(ctx, name){
+exports.createApp = function(ctx, name){
 
     let appId = 1479976148232 + new Date().getTime(); 
     let appKey = CryptoJS.HmacSHA1('key', ''+appId).toString();
 
-    var app = new App({
+    let app = new App({
         appId: appId,
         appKey: appKey, 
         name: name,
@@ -20,4 +20,12 @@ let createApp = function(ctx, name){
     return app;
 }
 
-exports.createApp = createApp;
+exports.getAppsByUser = function(ctx, userId){
+    
+    let apps = App.find({
+        userId: userId
+    });
+
+    return apps;
+}
+

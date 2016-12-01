@@ -17,14 +17,13 @@ let regist = function* (username, pwd, phone, email){
 
 exports.regist = regist;
 
-let login = function* (ctx, username, pwd){
+let getUserByName = function* (ctx, username){
     let user = yield User.findOne({username: username}).exec();
-    ctx.cookies.set('accessToken', user.accessToken);
-    ctx.cookies.set('username', user.username);
-    return user.username;
+
+    return user;
 }
 
-exports.login = login;
+exports.getUserByName= getUserByName;
 
 let getUserByToken = function* (token){
     let user = yield User.findOne({accessToken: token}).exec();

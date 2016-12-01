@@ -17,7 +17,7 @@ class Login extends React.Component {
     create(){
         let self = this;
         $.ajax({
-            url: global.apiUrl + '/create',
+            url: global.apiUrl + '/user',
             type: 'post',
             data: {
                 name: self.state.name,
@@ -25,7 +25,22 @@ class Login extends React.Component {
             }
         })
         .done(json => {
-            console.log(json);
+            self.login();
+        });
+    }
+
+    login(){
+        let self = this;
+        $.ajax({
+            url: global.apiUrl + '/user/login',
+            type: 'post',
+            data: {
+                name: self.state.name,
+                pwd: self.state.pwd
+            }
+        })
+        .done(json => {
+            location.href = '/app';
         });
     }
 
@@ -41,7 +56,9 @@ class Login extends React.Component {
                     <input type="text" className="form-control" placeholder="password" valueLink={this.linkState('pwd')}/>
                 </div>
                 <button type="button" className="btn btn-primary"
-                   onClick={this.create.bind(this)} >创建</button>
+                   onClick={this.login.bind(this)} >登录</button>
+                <button type="button" className="btn btn-primary"
+                   onClick={this.create.bind(this)} >创建并登录</button>
             </div>
         );
     }
