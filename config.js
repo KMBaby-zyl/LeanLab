@@ -8,4 +8,5 @@ export default {
 
     session_secret: 'leanlab_secret', // 务必修改
     auth_cookie_name: 'leanlab',
+    static_url: '/static/'
 }

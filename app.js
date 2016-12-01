@@ -4,9 +4,13 @@ import bodyParser from 'koa-bodyparser';
 import auth from './middlewares/auth';
 import Pug from 'koa-pug';
 
+import mount from 'koa-mount';
+import serve from 'koa-static';
+
 // router
 import Api from './Api/router';
 import webRouter from './webRouter';
+import config from './config';
 
 
 let app = koa();
@@ -31,15 +35,23 @@ app.use(function* (next){
 const pug = new Pug({
     viewPath: './views',
     debug: false,
+    noCache: true,
     pretty: false,
     compileDebug: false,
-    locals: {}, //global_locals_for_all_pages,
+    locals: {
+        static_url: config.static_url
+    }, //global_locals_for_all_pages,
     basedir: './views/',
     helperPath: [
         { _: require('underscore') }
     ],
     app: app
 });
+
+console.log(pug.locals);
+
+app.use(mount('/static', serve('dist')));
+//app.use(mount('/assets/avatar', serve('assets/avatar')));
 
 
 app.use(auth.authUser);
