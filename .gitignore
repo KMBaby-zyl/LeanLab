@@ -2,3 +2,4 @@ node_modules/
 .happypack/
 .git/
 dist/
+npm-debug.log

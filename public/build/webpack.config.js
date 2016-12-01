@@ -31,10 +31,11 @@ module.exports =  {
     },
     plugins: [
         new CopyWebpackPlugin([
-            //{
-                //from: 'html',
-                //to: 'html'
-            //},
+            {
+                context: 'public/global/lib/',
+                from: '**/*',
+                to: 'lib'
+            },
             //{
                 //from: 'img',
                 //to: 'img'
