@@ -55,10 +55,11 @@ module.exports =  {
         }),
         new webpack.optimize.DedupePlugin(),
         new ExtractTextPlugin("[name].css"),
-        //new webpack.optimize.CommonsChunkPlugin({
-                            //name: 'common',
-                            //minChunks: Infinity
-                        //}),
+
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'common',
+            minChunks: Infinity
+        }),
         new HappyPack({
             id: 'js',
             loaders: [ 'babel'],
