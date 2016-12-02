@@ -57,7 +57,7 @@ module.exports =  {
             _: 'underscore',
             React: 'react',
             ReactDOM: 'react-dom',
-            global: 'global'
+            global: 'global',
         }),
         new WebpackNotifierPlugin({
             title: 'Webpack 编译成功',

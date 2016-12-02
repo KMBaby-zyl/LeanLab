@@ -2,24 +2,11 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
-import {cyan500} from 'material-ui/styles/colors';
+import {MuiThemeProvider} from 'components';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
 
 import './list.scss';
-
-const muiTheme = getMuiTheme({
-    palette: {
-        textColor: cyan500,
-    },
-    appBar: {
-        height: 50,
-    },
-});
 
 class Item extends React.Component{
 
@@ -60,7 +47,7 @@ export default class AppList extends React.Component {
 
     }
 
-    handleOpen () {
+    handleOpen(){
         this.setState({open: true});
     }
 
@@ -88,6 +75,8 @@ export default class AppList extends React.Component {
         this.setState({
             appname: e.target.value
         });
+
+        return false;
     }
 
     render(){
@@ -101,7 +90,7 @@ export default class AppList extends React.Component {
           />,
         ];
         return (
-            <MuiThemeProvider muiTheme={muiTheme}>
+            <MuiThemeProvider>
                 <div className="mod-app-wrp">
                     <div className="applist clearfix">
                     {

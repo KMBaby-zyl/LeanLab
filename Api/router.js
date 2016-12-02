@@ -40,6 +40,19 @@ router.post('/app', auth.userRequired, function *(next){
 });
 
 /*
+ * update an app
+ * */
+router.put('/app', auth.userRequired, function *(next){
+    let body = this.request.body; 
+    let name = body.name;
+    let _id = body._id;
+
+    let ans = App.update(this, _id, {name: name}); 
+
+    this.body = ans;
+});
+
+/*
  * user regist
  *
  * */
