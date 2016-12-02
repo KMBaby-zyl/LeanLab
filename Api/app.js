@@ -24,7 +24,8 @@ exports.getAppsByUser = function(ctx, userId){
     
     let apps = App.find({
         userId: userId
-    });
+    })
+    .exec();
 
     return apps;
 }

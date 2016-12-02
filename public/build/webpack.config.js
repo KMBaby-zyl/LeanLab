@@ -18,7 +18,7 @@ var common = {
         'jquery',
         'underscore',
         'react',
-        'react-dom'
+        'react-dom',
     ]
 }
 
