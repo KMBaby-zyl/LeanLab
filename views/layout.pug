@@ -6,11 +6,16 @@ html
 
         link(rel='stylesheet', href=static_url + 'lib/bootstrap/css/bootstrap.min.css')
         link(rel='stylesheet', href=static_url + page_tag + '.css')
-        script(src=static_url + 'lib/jquery.js')
-        script(src=static_url + 'lib/bootstrap/js/bootstrap.min.js')
+        //-script(src=static_url + 'lib/jquery.js')
+        //-script(src=static_url + 'lib/bootstrap/js/bootstrap.min.js')
     body
         block content
 
+        script.
+            var pageConfig= {};
+            pageConfig.reactData = !{react_data}
+            //-window.pageConfig = pageConfig;
             
         script(src=static_url + 'common.js')
         script(src=static_url + page_tag +'.js')
+

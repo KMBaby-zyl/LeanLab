@@ -1,5 +1,7 @@
 import AppList from './List';
 
-ReactDOM.render(<AppList number={11} />, $('.mod-app')[0]);
+let props = pageConfig.reactData.AppList;
+
+ReactDOM.render(<AppList />, $('.mod-app')[0]);
 
 //ReactDOM.render(<div />, $('.mod-app')[0]);

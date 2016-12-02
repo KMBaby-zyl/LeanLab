@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default class AppList extends React.Component {
 
     constructor(props){

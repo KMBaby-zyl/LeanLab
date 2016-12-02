@@ -13,6 +13,17 @@ var happyThreadPool = HappyPack.ThreadPool({ size: 2 });
 var entry_file = utils.add_prefix(require('./entry.js'), './public/');
 var alias_file = utils.add_prefix(require('./alias.js'), './public/');
 
+var common = {
+    common: [
+        'jquery',
+        'underscore',
+        'react',
+        'react-dom'
+    ]
+}
+
+entry_file = extend(common, entry_file);
+
 var env = process.env.NODE_ENV;
 
 module.exports =  {
