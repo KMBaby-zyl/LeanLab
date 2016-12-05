@@ -9,7 +9,7 @@ const router = new Router({
 router.all('/login', User.login);
 router.all('/app', auth.userRequired, App.index);
 router.all('/app/:id', auth.userRequired, App.detail);
-router.all('/app/:id/data', auth.userRequired, App.detail);
+router.all('/app/:id/data', auth.userRequired, App.data);
 
 
 export default router;

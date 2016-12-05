@@ -104,8 +104,8 @@ router.post('/user/login', function *(next){
 router.post('/collection', function *(next){
     let body = this.request.body;
     let appId = body.appId;
-    let ACL = body.ACL;
-    let keys = body.keys;
+    let ACL = body.ACL || null;
+    let keys = body.keys || null; 
     let name = body.name;
 
     let ans = Collection.create(this, appId, name, keys, ACL);

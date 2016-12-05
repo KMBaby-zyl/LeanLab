@@ -1,6 +1,14 @@
 import {Collection} from '../models/';
+import utils from '../common/tools';
 
 let create = function(ctx, appId, name, keys, ACL){
+
+    if(!keys) keys = {};
+    if(!ACL) ACL = { '*': { write: true, read: true}};
+
+
+    keys = utils.toString(keys);
+    ACL = utils.toString(ACL);
 
     let col = new Collection({
         appId: appId,
@@ -59,6 +67,47 @@ let deleteById = function(ctx, collectionId){
     return col;
 }
 exports.deleteById = deleteById;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
