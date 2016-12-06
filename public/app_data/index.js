@@ -6,6 +6,14 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import './index.scss';
 
+const styles = {
+    deleteBtn: {
+        'backgroundColor': 'none',
+        'minWidth': '40px',
+        'borderRight': '1px solid #aaa'
+    }
+}
+
 class ListBar extends React.Component{
     constructor(props){
         super(props);
@@ -98,6 +106,10 @@ class Detail extends React.Component{
         })
     }
 
+    deleteKey(index){
+        console.log(index);
+    }
+
     showKeyDialog(){
         this.setState({
             openKeyDialog: true
@@ -133,8 +145,18 @@ class Detail extends React.Component{
                             <div className="table">
                                 <div className="table-header">
                                     {
-                                        cur_coll_obj.keyArr.map(function(item){
-                                            return <span className="table-h-span" key={item} >{item}</span>
+                                        cur_coll_obj.keyArr.map(function(item, index){
+                                            let len = cur_coll_obj.keyArr.length;
+                                            let canD = false;
+                                            if( index > 0 && (index + 3) < len ){
+                                                canD = true;
+                                            }
+                                            return [
+                                                    <span className="table-h-span" key={item} >{item}</span>,
+                                                    canD ? <RaisedButton  
+                                                        style={styles.deleteBtn}
+                                                        onClick={self.deleteKey.bind(this, index)}>删除</RaisedButton> : null
+                                                    ]
                                         })
                                     }
                                 </div>
