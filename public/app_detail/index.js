@@ -56,7 +56,6 @@ class Detail extends React.Component{
                         <label>APPKey</label>
                         <TextField value={appKey} 
                                     disabled={true}/>
-                     
                         <br />
                         <RaisedButton label="更新" onClick={this.update.bind(this)} />
                     </Paper>

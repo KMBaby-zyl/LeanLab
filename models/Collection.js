@@ -9,8 +9,8 @@ var CollectionSchema = new Schema({
     createAt: {type: Date, default: Date.now},
     updateAt: {type: Date, default: Date.now},
     name: {type: String, required: true},
-    keys: {type: String, required: true},
-    ACL: {type: String, required: true}
+    keys: {type: Array, default: []},
+    ACL: {type: Object, required: true}
 },{
     collection: 'collections' 
 });

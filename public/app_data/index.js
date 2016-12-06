@@ -1,5 +1,6 @@
 import {MuiThemeProvider} from 'components';
 import Bar from '../app_detail/Bar';
+import KeyDialog from './KeyDialog';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -65,7 +66,8 @@ class Detail extends React.Component{
         super(props);
 
         this.state = {
-            cur_coll: null
+            cur_coll: null,
+            openKeyDialog: false 
         }
     }
 
@@ -80,10 +82,39 @@ class Detail extends React.Component{
         });
     }
 
+    addKey(opt){
+        let keys = this.state.cur_coll_obj.keys;
+        keys.push(opt);
+
+        let data = {
+            keys: keys,
+            collectionId: this.state.cur_coll
+        };
+
+        $.ajax({
+            url: global.apiUrl + '/collection',
+            type: 'put',
+            data: data
+        })
+    }
+
+    showKeyDialog(){
+        this.setState({
+            openKeyDialog: true
+        });
+    }
+
+    closeKeyDialog(){
+        this.setState({
+            openKeyDialog: false 
+        });
+    }
+
     render(){
         let _id = this.props.appId;
         let {collections} = this.props;
-        let {cur_coll_obj} = this.state;
+        let {openKeyDialog, cur_coll_obj} = this.state;
+        let self = this;
 
         return (
             <MuiThemeProvider>
@@ -94,7 +125,11 @@ class Detail extends React.Component{
                         <ListBar {...this.props} changeCur={this.changeCur.bind(this)} />
                         { cur_coll_obj ?
                         <div className="table-wrp">
-                            <div className="title">{cur_coll_obj.name}</div>
+                            <div className="title">
+                                <span>{cur_coll_obj.name}</span>
+                                <div className="add-key-btn" 
+                                    onClick={self.showKeyDialog.bind(this)}>增加列</div>
+                            </div>
                             <div className="table">
                                 <div className="table-header">
                                     {
@@ -107,6 +142,11 @@ class Detail extends React.Component{
                         </div> : null
                         }
                     </Paper>
+                    <KeyDialog 
+                        open={openKeyDialog} 
+                        handleClose={this.closeKeyDialog.bind(this)}
+                        addKey={this.addKey.bind(this)}
+                    />
                 </div>
             </MuiThemeProvider>
         )

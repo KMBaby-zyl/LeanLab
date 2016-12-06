@@ -1,14 +1,11 @@
 import {Collection} from '../models/';
 import utils from '../common/tools';
 
-let create = function(ctx, appId, name, keys, ACL){
+let create = function* (ctx, appId, name, keys, ACL){
 
-    if(!keys) keys = {};
+    if(!keys) keys = [] 
     if(!ACL) ACL = { '*': { write: true, read: true}};
 
-
-    keys = utils.toString(keys);
-    ACL = utils.toString(ACL);
 
     let col = new Collection({
         appId: appId,
@@ -17,7 +14,7 @@ let create = function(ctx, appId, name, keys, ACL){
         ACL: ACL
     });
    
-    col.save();
+    yield col.save();
 
     return col;
 }
@@ -38,10 +35,10 @@ let queryALl = function* (ctx, appId){
     cols.forEach(function(item){
         let keyArr = [];
         keyArr.push('ObjectId');
-        item.keys = JSON.parse(item.keys);
-        for(let i in item.keys){
-            keyArr.push(i);
-        }
+
+        item.keys.map(function(i){
+            keyArr.push(i.name);
+        });
         keyArr.push('ACL');
         keyArr.push('createAt');
         keyArr.push('updateAt');
@@ -57,14 +54,15 @@ exports.queryAll = queryALl;
 
 let update = function(ctx, collectionId, name, keys, ACL){
 
+    let ndata = {};
+    name && (ndata.name = name);
+    keys && (ndata.keys = keys);
+    ACL && (ndata.ACL = ACL);
+
     let col = Collection.findOne({
         _id: collectionId
     })
-    .update({
-        keys: keys,
-        name: name,
-        ACL: ACL
-    })
+    .update(ndata)
     .exec();
 
 
@@ -74,7 +72,6 @@ let update = function(ctx, collectionId, name, keys, ACL){
 exports.update = update;
 
 let deleteById = function(ctx, collectionId){
-    console.log(collectionId);
 
     let col = Collection.find({_id: collectionId}).remove().exec();
 

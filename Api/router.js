@@ -108,7 +108,7 @@ router.post('/collection', function *(next){
     let keys = body.keys || null; 
     let name = body.name;
 
-    let ans = Collection.create(this, appId, name, keys, ACL);
+    let ans = yield Collection.create(this, appId, name, keys, ACL);
     this.body = ans;
 });
 
@@ -126,7 +126,6 @@ router.put('/collection', function *(next){
 
     let ans = yield Collection.update(this, collectionId, name, keys, ACL);
     this.body = ans;
-
 });
 
 /*
