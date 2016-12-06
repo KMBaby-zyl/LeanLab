@@ -26,14 +26,28 @@ exports.create = create;
 
 
 
-let queryALl = function(ctx, appId){
+let queryALl = function* (ctx, appId){
         
-    let cols = Collection.find({
+    let cols = yield Collection.find({
         appId: appId
     })
+    .lean()
     .exec();
 
-    //let docs = Document.find().exec();
+
+    cols.forEach(function(item){
+        let keyArr = [];
+        keyArr.push('ObjectId');
+        item.keys = JSON.parse(item.keys);
+        for(let i in item.keys){
+            keyArr.push(i);
+        }
+        keyArr.push('ACL');
+        keyArr.push('createAt');
+        keyArr.push('updateAt');
+        item.keyArr = keyArr;
+    });
+
     return cols;
 }
 

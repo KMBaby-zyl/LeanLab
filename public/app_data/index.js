@@ -96,7 +96,13 @@ class Detail extends React.Component{
                         <div className="table-wrp">
                             <div className="title">{cur_coll_obj.name}</div>
                             <div className="table">
-                                <div className="table-header"></div>
+                                <div className="table-header">
+                                    {
+                                        cur_coll_obj.keyArr.map(function(item){
+                                            return <span className="table-h-span" key={item} >{item}</span>
+                                        })
+                                    }
+                                </div>
                             </div>
                         </div> : null
                         }
