@@ -133,7 +133,8 @@ class Detail extends React.Component{
         $.ajax({
             url: global.apiUrl + '/collection',
             type: 'put',
-            data: data,
+            contentType: 'application/json',
+            data: JSON.stringify(data),
         })
         .done(json=>{
             let c = collections.slice(0);
