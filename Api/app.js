@@ -30,10 +30,20 @@ exports.getAppsByUser = function(ctx, userId){
     return apps;
 }
 
-exports.getAppById = function(ctx, appId){
+exports.getAppById = function(ctx, id){
     
     let app = App.findOne({
-        _id: appId 
+        _id: id 
+    })
+    .exec();
+
+    return app;
+}
+
+exports.getAppByAppId = function(ctx, appId){
+    
+    let app = App.findOne({
+        appId: appId 
     })
     .exec();
 

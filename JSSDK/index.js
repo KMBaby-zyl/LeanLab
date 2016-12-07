@@ -10,8 +10,22 @@ let APPKEY = '';
 
 let RIDER = {
     init: function(options){
+        let self = this;
         APPID = options.appId;
         APPKEY = options.appKey;
+
+        //let res = login();
+        //res.done(function(){
+            //getCollections.call(self)
+        //});
+
+        $.ajaxSetup({
+            headers: {
+                "RIDER-APPID": APPID,
+                "RIDER-APPKEY": APPKEY
+            }
+        });
+
     },
 
     Object: {
@@ -20,6 +34,19 @@ let RIDER = {
 
     Query: _Query
 }
+
+//function login(){
+   //return $.ajax({
+        //url: API_URL + '/checkApp',
+        //type: "post", 
+        //data: {
+            //appId: APPID,
+            //appKey: APPKEY,
+        //},
+        //success: function(json){
+        //}
+   //});
+//}
 
 function _Query(collection){
     this.collection = collection;
@@ -48,16 +75,29 @@ function _Object(name){
     }
 }
 
+//function getCollections(){
+   //$.ajax({
+        //url: API_URL + '/collections',
+        //type: "get", 
+        //data: {
+            //appId: APPID,
+            //appKey: APPKEY,
+            //collection: collection,
+            //document: content 
+        //},
+        //success: function(json){
+        //}
+   //});
+//}
+
 
 function insert(collection, content){
     return $.ajax({
-        url: API_URL + '/insert',
+        url: API_URL + '/document',
         type: "post", 
         data: {
-            appId: APPID,
-            appKey: APPKEY,
             collection: collection,
-            document: content 
+            body: content 
         },
         success: function(json){
         }
@@ -66,13 +106,11 @@ function insert(collection, content){
 
 function update(collection, content){
     return $.ajax({
-        url: API_URL + '/update',
-        type: "post",
+        url: API_URL + '/document',
+        type: "put",
         data: {
-            appId: APPID,
-            appKey: APPKEY,
             collection: collection,
-            document: content 
+            body: content 
         },
         success: function(json){
         }
@@ -81,11 +119,9 @@ function update(collection, content){
 
 function query(collection, options){
     return $.ajax({
-        url: API_URL + '/query',
+        url: API_URL + '/document',
         type: "get",
         data: {
-            appId: APPID,
-            appKey: APPKEY,
             collection: collection,
             options: options 
         }

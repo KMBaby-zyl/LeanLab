@@ -10,10 +10,9 @@
 
 <script type="text/javascript">
 // 应用 ID，用来识别应用
-var APP_ID = 'ckEojGxm9OGvJcHXyF3zXSzH-gzGzoHsz';
-
+var APP_ID = '2960644235866';
 // 应用 Key，用来校验权限（Web 端可以配置安全域名来保护数据安全）
-var APP_KEY = '1h4xSTyVoAepYYLpsbc1jFz3';
+var APP_KEY = '6f2c8ccaf19e6a3957c8a9df0a0b588f27795886';
 
 // 初始化
 Rider.init({
@@ -22,11 +21,12 @@ Rider.init({
 });
 
 
-var TestObject = Rider.Object.extend('shops');
+var TestObject = Rider.Object.extend('test');
 var testObject = new TestObject();
 
 testObject.save({
-    'name': '鱿鱼丝'
+    'name': '鱿鱼丝',
+    'age': '18'
 });
     
 </script>

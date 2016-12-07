@@ -1,27 +1,25 @@
 import {Document} from '../models/';
 
-let create = function(ctx, appId, collectionId, content){
+let create = function* (ctx, appId, collectionId, body){
 
     let doc = new Document({
         appId: appId,
         collectionId, collectionId,
-        content: content
+        body: body 
     });
 
-    doc.save();
+    yield doc.save();
 
     return doc;
 }
 
 exports.create = create;
 
-
-
 let query = function(ctx, appId, options){
         
     let docs = Document.find({
         appId: appId,
-        content: options 
+        body: options 
     })
     .exec();
 
@@ -49,7 +47,7 @@ exports.update = update;
 let deleteByOptions = function(ctx, appId, options){
     let docs = Document.find({
         appId: appId,
-        content: options
+        body: options
     })
     .remove()
     .exec();

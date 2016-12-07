@@ -52,6 +52,20 @@ let queryALl = function* (ctx, appId){
 exports.queryAll = queryALl;
 
 
+let getByName = function* (ctx, appId, name){
+
+    let cols = yield Collection.find({
+        appId: appId,
+        name: name
+    })
+    .lean()
+    .exec();
+
+    return cols[0]
+}
+
+exports.getByName = getByName;
+
 let update = function(ctx, collectionId, name, keys, ACL){
 
     let ndata = {};

@@ -52,7 +52,6 @@ const pug = new Pug({
 app.use(mount('/static', serve('dist')));
 //app.use(mount('/assets/avatar', serve('assets/avatar')));
 
-
 app.use(auth.authUser);
 
 app.use(bodyParser());

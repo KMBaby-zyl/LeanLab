@@ -10,7 +10,6 @@ import Document from './document.js';
 import Collection from './collection.js';
 import auth from '../middlewares/auth';
 
-
 router.use(function* (next){
     let ctx = this;
     this.set('Access-Control-Allow-Origin', '*');
@@ -96,6 +95,32 @@ router.post('/user/login', function *(next){
     this.body = this.ans;
 }); 
 
+/*
+ * Appkey loginIn
+ *
+ * */
+router.post('/checkApp', function *(next){
+    let body = this.request.body;
+    let appId = body.appId;
+    let appKey = body.appKey;
+
+    let app = yield App.getAppByAppId(this, appId);
+
+    // appId错误 
+    if(!app){
+        this.setError(consts.NO_APPID, 'appId不存在');
+        return ;
+    }
+
+    // appKey错误 
+    if(app.appKey != appKey){
+        this.setError(consts.APPKEY_ERROR, 'appKey不正确');
+        return ;
+    }
+
+    this.ans.data = 'appId 通过验证';
+    this.body = this.ans;
+}); 
 
 /*
  * create collection
@@ -142,21 +167,35 @@ router.delete('/collection', function *(next){
 
 });
 
+/*****************document 暂时只有appuser可以操作*************************/
 /*
  * create document
  * 
  * */
 router.post('/document', auth.userRequired, function *(next){
-    let body = this.request.body;
-    let appId = body.appId;
-    let appKey = body.appKey;
-    let collectionId = body.collectionId;
-    let document = JSON.stringify(body.document);
-    
+    let req = this.request;
+    let body = req.body;
 
-    let ans = Document.create(this, appId, collectionId, document);
+    let appuser = req.session.appuser;
+    let appId = appuser.app_id;
+    let appKey = appuser.appKey;
+
+    let name = body.collection;
+    let collection = yield Collection.getByName(this, appId, name);
+    let collectionId = collection._id;
+    let docbody = body.body;
+    
+    let ans = yield Document.create(this, appId, collectionId, docbody);
 
     this.body = ans; 
+});
+
+router.options('/document', function *(next){
+    let res = this.response;
+    this.set('Access-Control-Allow-Origin', '*');
+    this.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
+    this.set('Access-Control-Max-Age', 1000);
+    this.set('Access-Control-Allow-Headers', 'RIDER-APPID, RIDER-APPKEY');
 });
 
 
@@ -208,9 +247,9 @@ router.delete('/document', auth.userRequired, function *(next){
 router.put('/document', auth.userRequired, function* (next){
     let body = this.request.body;
     let id = body.documentId;
-    let document = body.document;
+    let docbody = body.body;
 
-    let ans = yield Document.update(this, id, document);
+    let ans = yield Document.update(this, id, docbody);
 
     this.body = ans;
 });
