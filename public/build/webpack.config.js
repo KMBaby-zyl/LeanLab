@@ -15,6 +15,7 @@ var alias_file = utils.add_prefix(require('./alias.js'), './public/');
 
 var common = {
     common: [
+        'common',
         'jquery',
         'underscore',
         'react',

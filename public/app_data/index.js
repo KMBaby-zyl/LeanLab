@@ -21,7 +21,6 @@ class ListBar extends React.Component{
         this.state = {
             new_coll: '',
             cur_coll: null,
-            cur_coll_obj: null 
         }
     }
 
@@ -52,7 +51,7 @@ class ListBar extends React.Component{
             {
                 collections.map(function(item, index){
                     return <div className="coll-item" key={index}
-                                onClick={()=>self.props.changeCur(item._id)} >
+                                onClick={()=>self.props.changeCur(item._id, index)} >
                                 {item.name}
                         </div>
                 })
@@ -75,28 +74,30 @@ class Detail extends React.Component{
 
         this.state = {
             cur_coll: null,
-            openKeyDialog: false 
+            cur_index: null,
+            openKeyDialog: false,
+            collections: props.collections
         }
     }
 
-    changeCur(collectionId){
-        let obj = this.props.collections.filter(function(item){
-            return  item._id === collectionId
-        });
-
+    changeCur(collectionId, index){
         this.setState({
             cur_coll: collectionId,
-            cur_coll_obj: obj.length && obj[0] 
+            cur_index: index,
         });
     }
 
     addKey(opt){
-        let keys = this.state.cur_coll_obj.keys;
+        let self = this;
+        let {collections, cur_index, cur_coll} = this.state;
+
+        let curObj = this.getCurObj();
+        let keys = curObj.keys;
         keys.push(opt);
 
         let data = {
             keys: keys,
-            collectionId: this.state.cur_coll
+            collectionId: cur_coll
         };
 
         $.ajax({
@@ -104,10 +105,45 @@ class Detail extends React.Component{
             type: 'put',
             data: data
         })
+        .done(json=>{
+            let c = collections.slice(0);
+            c[cur_index].keys = keys;
+            c[cur_index].keyArr.splice(1, 0, opt.name);
+
+            self.setState({
+                collections: c
+            });
+        });
     }
 
     deleteKey(index){
-        console.log(index);
+        let self = this;
+        let {collections, cur_index, cur_coll} = this.state;
+
+        let curObj = this.getCurObj();
+        let keys = curObj.keys;
+        keys.splice(index - 1, 1);
+
+
+        let data = {
+            keys: keys,
+            collectionId: cur_coll
+        };
+
+        $.ajax({
+            url: global.apiUrl + '/collection',
+            type: 'put',
+            data: data,
+        })
+        .done(json=>{
+            let c = collections.slice(0);
+            c[cur_index].keys = keys;
+            c[cur_index].keyArr.splice(index, 1);
+
+            self.setState({
+                collections: c
+            });
+        });
     }
 
     showKeyDialog(){
@@ -122,11 +158,24 @@ class Detail extends React.Component{
         });
     }
 
+    getCurObj(){
+        let {cur_coll, collections} = this.state;
+        let r = collections.filter( item => {
+            return item._id === cur_coll
+        });
+
+        if( r && r[0] ) return r[0];
+
+        return null;
+    }
     render(){
         let _id = this.props.appId;
-        let {collections} = this.props;
-        let {openKeyDialog, cur_coll_obj} = this.state;
+        let {collections} = this.state;
+        let {openKeyDialog, cur_coll} = this.state;
         let self = this;
+        let cur_coll_obj = self.getCurObj();
+
+        console.log(cur_coll_obj);
 
         return (
             <MuiThemeProvider>
@@ -155,7 +204,7 @@ class Detail extends React.Component{
                                                     <span className="table-h-span" key={item} >{item}</span>,
                                                     canD ? <RaisedButton  
                                                         style={styles.deleteBtn}
-                                                        onClick={self.deleteKey.bind(this, index)}>删除</RaisedButton> : null
+                                                        onClick={self.deleteKey.bind(self, index)}>删除</RaisedButton> : null
                                                     ]
                                         })
                                     }
