@@ -59,5 +59,10 @@ nodemon ./server.js
 7. Auth -ing
 
 
+# DESIGN AUTH
 
+1. 后端登录用户
+2. 客户端 普通用户
+3. 客户端 登录用户
+4. 区别客户端 登录用户的类型
 
