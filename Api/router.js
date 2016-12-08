@@ -172,6 +172,15 @@ router.delete('/collection', function *(next){
  * create document
  * 
  * */
+
+router.options('/document', function *(next){
+    let res = this.response;
+    this.set('Access-Control-Allow-Origin', '*');
+    this.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
+    this.set('Access-Control-Max-Age', 1000);
+    this.set('Access-Control-Allow-Headers', 'RIDER-APPID, RIDER-APPKEY', 'RIDER-APPUSER');
+});
+
 router.post('/document', auth.userRequired, function *(next){
     let req = this.request;
     let body = req.body;
@@ -189,15 +198,6 @@ router.post('/document', auth.userRequired, function *(next){
 
     this.body = ans; 
 });
-
-router.options('/document', function *(next){
-    let res = this.response;
-    this.set('Access-Control-Allow-Origin', '*');
-    this.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
-    this.set('Access-Control-Max-Age', 1000);
-    this.set('Access-Control-Allow-Headers', 'RIDER-APPID, RIDER-APPKEY');
-});
-
 
 /*
  * query document
@@ -229,7 +229,6 @@ router.delete('/document', auth.userRequired, function *(next){
  * delete document by options
  *
  * */
-
 router.delete('/document', auth.userRequired, function *(next){
     let body = this.request.body;
     let collectionId = body.collectionId;

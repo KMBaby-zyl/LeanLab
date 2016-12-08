@@ -51,20 +51,22 @@ exports.userRequired = function* (next) {
     let req = this.request;
     let res = this.response;
 
-    let appId = this.get('RIDER-APPID');
-    let appKey = this.get('RIDER-APPKEY');
 
+    // 后端登录
     if (req.session && req.session.user && req.session.user._id) {
         yield next;
     }else{
+        let appId = this.get('RIDER-APPID');
+        let appKey = this.get('RIDER-APPKEY');
+        let appUser = this.get('RIDER-APPUSER') || 0;
         let app = yield App.getAppByAppId(this, appId);
-        console.log(app);
         
         if(app.appKey === appKey){
             req.session.appuser = {
                 appId: appId,
                 appKey: appKey,
-                app_id: app._id 
+                app_id: app._id,
+                appUserId: appUser
             }
             yield next;
         }else{
