@@ -178,7 +178,7 @@ router.options('/document', function *(next){
     this.set('Access-Control-Allow-Origin', '*');
     this.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
     this.set('Access-Control-Max-Age', 1000);
-    this.set('Access-Control-Allow-Headers', 'RIDER-APPID, RIDER-APPKEY', 'RIDER-APPUSER');
+    this.set('Access-Control-Allow-Headers', 'RIDER-APPID, RIDER-APPKEY, RIDER-APPUSER');
 });
 
 router.post('/document', auth.userRequired, function *(next){

@@ -4,6 +4,7 @@
   "description": "LeanLab",
   "main": "index.js",
   "scripts": {
+    "test": "",
     "start": "nodemon ./server.js",
     "sdk": "babel JSSDK/index.js --out-file build/rider.min.js",
     "demo": "python -m SimpleHTTPServer 8081",
