@@ -37,7 +37,12 @@
     "extract-text-webpack-plugin": "^0.8.2",
     "happypack": "^2.2.1",
     "install": "^0.8.2",
+    "jasmine-core": "^2.5.2",
     "jslint": "^0.10.3",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-mocha": "^1.3.0",
     "koa": "^1.2.4",
     "koa-bodyparser": "^2.3.0",
     "koa-mount": "^1.3.0",
@@ -66,11 +71,13 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "jquery": "~2.1.4",
-    "react-router": "~2.0.0",
     "classnames": "^2.2.5",
-    "style-loader": "~0.12.3",
     "css-loader": "^0.16.0",
-    "sass-loader": "^3.1.2"
+    "jquery": "~2.1.4",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.8.0",
+    "react-router": "~2.0.0",
+    "sass-loader": "^3.1.2",
+    "style-loader": "~0.12.3"
   }
 }
