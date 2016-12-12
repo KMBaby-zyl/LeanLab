@@ -76,14 +76,43 @@ class Detail extends React.Component{
             cur_coll: null,
             cur_index: null,
             openKeyDialog: false,
-            collections: props.collections
+            collections: props.collections,
+            documents: []
         }
     }
 
     changeCur(collectionId, index){
-        this.setState({
-            cur_coll: collectionId,
-            cur_index: index,
+        let self = this;
+        let {collections} = this.state;
+        $.ajax({
+            url: global.apiUrl + '/document',
+            type: 'get',
+            data: {
+                collectionId: collectionId,
+                offset: 0,
+                size: 10
+            }
+        })
+        .done(json=>{
+            let d = [];
+            json.map(function(item){
+                let tdata = {
+                    ObjectId: item._id,
+                    ACL: JSON.stringify(collections[index].ACL),
+                    createAt: item.createAt,
+                    updateAt: item.updateAt
+                };
+                for(let key in item.body){
+                    tdata[key] = item.body[key]
+                }
+                d.push(tdata);
+            });
+
+            self.setState({
+                cur_coll: collectionId,
+                cur_index: index,
+                documents: d 
+            });
         });
     }
 
@@ -172,11 +201,10 @@ class Detail extends React.Component{
     render(){
         let _id = this.props.appId;
         let {collections} = this.state;
-        let {openKeyDialog, cur_coll} = this.state;
+        let {openKeyDialog, cur_coll, documents} = this.state;
         let self = this;
         let cur_coll_obj = self.getCurObj();
 
-        console.log(cur_coll_obj);
 
         return (
             <MuiThemeProvider>
@@ -207,6 +235,16 @@ class Detail extends React.Component{
                                                         style={styles.deleteBtn}
                                                         onClick={self.deleteKey.bind(self, index)}>删除</RaisedButton> : null
                                                     ]
+                                        })
+                                    }
+                                </div>
+                                <div className="table-body">
+                                    {
+                                        documents.map(function(item){
+                                            return <div className="table-b-col">{
+                                                    cur_coll_obj.keyArr.map(function(i){
+                                                return <span className="table-b-span">{item[i]}</span>
+                                            })}</div>
                                         })
                                     }
                                 </div>

@@ -15,12 +15,15 @@ let create = function* (ctx, appId, collectionId, body){
 
 exports.create = create;
 
-let query = function(ctx, appId, options){
-        
-    let docs = Document.find({
-        appId: appId,
-        body: options 
-    })
+let query = function(ctx, collectionId, options, offset, size){
+
+    let data = {
+        collectionId: collectionId,
+    }
+    if(options){
+        data.body = options
+    }
+    let docs = Document.find(data)
     .exec();
 
     //let docs = Document.find().exec();

@@ -203,11 +203,14 @@ router.post('/document', auth.userRequired, function *(next){
  * query document
  *
  * */
-router.get('/document/:collectionId/:options', auth.userRequired, function *(next){
-    let collectionId = this.params.collectionId;
-    let options = this.params.options;
+router.get('/document', auth.userRequired, function *(next){
+    let query = this.query;
+    let collectionId = query.collectionId;
+    let options = query.options;
+    let size = query.size;
+    let offset = query.offset;
 
-    let ans = yield Document.query(this, collectionId, options);
+    let ans = yield Document.query(this, collectionId, options, offset, size);
 
     this.body = ans;
 });
@@ -216,9 +219,9 @@ router.get('/document/:collectionId/:options', auth.userRequired, function *(nex
  * delete document by id
  *
  * */
-router.delete('/document', auth.userRequired, function *(next){
+router.delete('/document/:id', auth.userRequired, function *(next){
     let body = this.request.body;
-    let id = body.collectionId;
+    let id = this.params.id;
     
     let ans = yield Document.deleteById(this, id);
 
