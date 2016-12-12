@@ -33,7 +33,7 @@ router.post('/app', auth.userRequired, function *(next){
     let body = this.request.body; 
     let name = body.name;
 
-    let ans = App.createApp(this, name); 
+    let ans = yield App.createApp(this, name); 
 
     this.body = ans;
 });

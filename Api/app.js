@@ -3,7 +3,7 @@ import {App} from '../models/';
 
 
 
-exports.createApp = function(ctx, name){
+exports.createApp = function* (ctx, name){
 
     let appId = 1479976148232 + new Date().getTime(); 
     let appKey = CryptoJS.HmacSHA1('key', ''+appId).toString();
@@ -15,7 +15,7 @@ exports.createApp = function(ctx, name){
         userId: ctx.request.session.user._id 
     });
     
-    app.save();
+    yield app.save();
 
     return app;
 }
