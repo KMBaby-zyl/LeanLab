@@ -230,24 +230,24 @@ class Detail extends React.Component{
                                                 canD = true;
                                             }
                                             return [
-                                                    <span className="table-h-span" key={item} >{item}</span>,
+                                                    <span className="table-h-span" key={item} >
+                                                        <i>{item}</i>{
                                                     canD ? <RaisedButton  
                                                         style={styles.deleteBtn}
                                                         onClick={self.deleteKey.bind(self, index)}>删除</RaisedButton> : null
+                                                    }</span>,
                                                     ]
                                         })
                                     }
                                 </div>
-                                <div className="table-body">
-                                    {
-                                        documents.map(function(item){
-                                            return <div className="table-b-col">{
-                                                    cur_coll_obj.keyArr.map(function(i){
-                                                return <span className="table-b-span">{item[i]}</span>
-                                            })}</div>
-                                        })
-                                    }
-                                </div>
+                                {
+                                    documents.map(function(item){
+                                        return <div className="table-b-col">{
+                                                cur_coll_obj.keyArr.map(function(i){
+                                            return <span className="table-b-span">{item[i]}</span>
+                                        })}</div>
+                                    })
+                                }
                             </div>
                         </div> : null
                         }
