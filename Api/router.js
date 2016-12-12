@@ -60,7 +60,7 @@ router.post('/user', function *(next){
     let name = body.name;
     let pwd = body.pwd;
 
-    let ans = yield User.regist(name, pwd);
+    let ans = yield User.regist(this, name, pwd);
 
     this.body = ans;
 }); 
@@ -74,7 +74,7 @@ router.post('/user/login', function *(next){
     let name = body.name;
     let pwd = body.pwd;
 
-    let user = yield User.getUserByName(this, name, pwd);
+    let user = yield User.getUserByName(this, name);
 
     // 用户不存在
     if(!user){

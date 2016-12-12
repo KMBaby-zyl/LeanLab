@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 import config from '../config';
 
-
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://' + config.mongodburl, {
     server: {poolSize: 20}
 }, function(err){

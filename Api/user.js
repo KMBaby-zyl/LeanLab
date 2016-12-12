@@ -1,7 +1,7 @@
 import {User} from '../models';
 import uuid from 'node-uuid';
 
-let regist = function* (username, pwd, phone, email){
+let regist = function* (ctx, username, pwd, phone, email){
     let user = new User({
         username: username,
         pwd: pwd,
@@ -10,7 +10,7 @@ let regist = function* (username, pwd, phone, email){
         accessToken: uuid.v4()
     });    
 
-    user.save();
+    yield user.save();
 
     return user;
 }

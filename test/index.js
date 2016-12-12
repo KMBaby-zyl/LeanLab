@@ -1,3 +1,5 @@
+require("babel-core/register");
+require("babel-polyfill");
 // import all helpers
 const helpersContext = require.context('./helpers', true)
 helpersContext.keys().forEach(helpersContext)
