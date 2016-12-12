@@ -20,6 +20,18 @@ exports.createApp = function* (ctx, name){
     return app;
 }
 
+exports.deleteApp = function* (ctx, id){
+
+    let app = App.findOne({
+        _id: id 
+    })
+    .remove()
+    .exec();
+    
+
+    return app;
+}
+
 exports.getAppsByUser = function(ctx, userId){
     
     let apps = App.find({
